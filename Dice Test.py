@@ -3,12 +3,12 @@ from collections import defaultdict
 
 def roll_exploding_die(sides):
     """Rolls an exploding die. If the max value is rolled, it rolls again and adds the result."""
-    total = 0
+    exploding_die_total = 0
     roll = sides
     while roll == sides:
         roll = random.randint(1, sides)
-        total += roll
-    return total
+        exploding_die_total += roll
+    return exploding_die_total
 
 def roll_morph_die(starting_die=4):
     """
@@ -21,12 +21,12 @@ def roll_morph_die(starting_die=4):
         raise ValueError(f"Starting die must be one of: {die_chain}")
 
     index = die_chain.index(starting_die)
-    total = 0
+    morph_die_total = 0
 
     while index < len(die_chain):
         sides = die_chain[index]
         roll = random.randint(1, sides)
-        total += roll
+        morph_die_total += roll
 
         if sides == 20 and roll == 20:
             break  # terminate the morphing sequence if 20 on d20
@@ -35,7 +35,7 @@ def roll_morph_die(starting_die=4):
         else:
             break  # no explosion, end morph sequence
 
-    return total
+    return morph_die_total
 
 def simulate_rolls(dice, modifier=0, dc=10, trials=10000, use_morph_die=False, starting_morph_die=4):
     """
